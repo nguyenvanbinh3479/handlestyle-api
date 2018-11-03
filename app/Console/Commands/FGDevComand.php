@@ -69,6 +69,14 @@ class FGDevComand extends Command
                 $this->setUpDatabase();
             }
         }
+
+
+        $this->info('Migrating database');
+        Artisan::call('migrate', ['--force' => true]);
+
+        $this->info('👤 Generating key passport for oauth2');
+        Artisan::call('passport:install', ['--force' => true]);
+
         $this->comment('Again, for more configuration guidance, refer to');
         $this->info('🎁  '.config('fg-dev.misc.docs_url'));
         $this->comment('or open the .env file in the root installation folder.');
